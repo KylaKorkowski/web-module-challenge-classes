@@ -44,9 +44,27 @@ class Airplane {
 */
 
 class Person {
-  
+  constructor(name, age){
+    this.name = name;
+    this.age = age;
+    this.stomach = [];
+  } 
+  eat(edible){
+      if(this.stomach.length < 10){
+        this.stomach.push(edible);
+      }
+  };
+  poop(){
+    this.stomach = [];
+  };
+  toString(){
+    return `${this.name}, ${this.age}`;
+  };
 }
-
+const mary = new Person({
+  name: 'Mary',
+  age: 50
+})
 /*
   TASK 2
     - Write a Car class whose constructor initializes `model` and `milesPerGallon`, from 2 arguments.
@@ -62,7 +80,26 @@ class Person {
 */
 
 class Car {
-  
+  constructor(model, milesPerGallon){
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
+  }
+  fill(gallons){
+    this.tank = this.tank + gallons;
+  };
+  drive(distance){
+    const driveableMiles = this.tank * this.milesPerGallon;
+    if(distance <= driveableMiles){
+      this.odometer = this.odometer + distance;
+      this.tank = this.tank - (distance / this.milesPerGallon);
+    }else{
+      this.odometer = this.odometer + driveableMiles;
+      this.tank = 0;
+      return `I ran out of fuel at ${this.odometer} miles!`;
+    }
+  };
 }
 
 /*
@@ -79,7 +116,14 @@ class Car {
 */
 
 class Lambdasian {
-  
+  constructor(arr){
+    this.name = arr.name;
+    this.age = arr.age;
+    this.location = arr.location;
+  }
+  speak(){
+    return `Hello my name is ${this.name}, I am from ${this.location}`;
+  }
 }
 
 /*
@@ -97,8 +141,19 @@ class Lambdasian {
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
 
-class Instructor {
-
+class Instructor extends Lambdasian{
+  constructor(arr){
+    super(arr);
+    this.specialty = arr.specialty;
+    this.favLanguage = arr.favLanguage;
+    this.catchPhrase = arr.catchPhrase;
+  }
+  demo(arr){
+    return `Today we are learning about ${arr}`;
+  };
+  grade(student, arr){
+    return `${student.name} receives a perfect score on ${arr}'`;
+  }
 }
 
 /*
@@ -117,8 +172,22 @@ class Instructor {
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
 
-class Student {
-   
+class Student extends Lambdasian {
+   constructor(arr){
+    super(arr);
+    this.previousBackground = arr.previousBackground;
+    this.className = arr.className;
+    this.favSubjects = arr.favSubjects;
+   }
+   listSubjects(){
+    return `Loving ${this.favSubjects}`;
+   };
+   PRAssignment(arr){
+    return `${this.name} has submitted a PR for ${arr}`;
+   };
+   sprintChallenge(arr){
+    return `${this.name} has begun sprint challenge on ${arr}`;
+   };
 }
 
 /*
@@ -135,8 +204,18 @@ class Student {
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
 
-class ProjectManager {
-   
+class ProjectManager extends Instructor{
+   constructor(arr){
+    super(arr);
+    this.gradClassName = arr.gradClassName;
+    this.favInstructor = arr.favInstructor;
+   }
+   standUp(channel){
+    return `${this.name} announces to ${channel}, @${channel} standy times!`;
+   };
+   debugsCode(student, subject){
+    return `${this.name} debugs ${student.name}'s code on ${subject}`;
+   };
 }
 
 /*
